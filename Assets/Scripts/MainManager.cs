@@ -20,7 +20,7 @@ public class MainManager : MonoBehaviour
     private bool m_GameOver = false;
 
     public int score;
-    public string name;
+    public string uname;
     
     // Start is called before the first frame update
     void Start()
@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour
         LoadScore();
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
-        name = StartMenu.name;
+        uname = StartMenu.name1;
         int[] pointCountArray = new [] {1,1,2,2,5,5};
         for (int i = 0; i < LineCount; ++i)
         {
@@ -88,23 +88,23 @@ public class MainManager : MonoBehaviour
     }
     public void SaveScore(){
         SaveData data = new SaveData();
-        data.name = StartMenu.name;
         if(score < m_Points){
+            data.name = StartMenu.name1;
             data.score = m_Points;
         } else data.score = score;
-        highScore.text = $"Bestest Score : {data.score}";
+        highScore.text = $"Best Score : {data.name} {data.score}";
         string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        File.WriteAllText(Application.persistentDataPath + "/pingpongsave.json", json);
     }
     public void LoadScore(){
-        string path = Application.persistentDataPath + "/savefile.json";
+        string path = Application.persistentDataPath + "/pingpongsave.json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
-            name = data.name;
+            uname = data.name;
             score = data.score;
-            highScore.text = $"Bestest Score : {name} {score}";
+            highScore.text = $"Best Score: {uname} {score}";
         }
     }
 }
