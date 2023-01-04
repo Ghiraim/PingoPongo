@@ -29,7 +29,6 @@ public class MainManager : MonoBehaviour
         LoadScore();
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
-        uname = StartMenu.name1;
         int[] pointCountArray = new [] {1,1,2,2,5,5};
         for (int i = 0; i < LineCount; ++i)
         {
@@ -91,10 +90,10 @@ public class MainManager : MonoBehaviour
         if(score < m_Points){
             data.name = StartMenu.name1;
             data.score = m_Points;
-        } else data.score = score;
-        highScore.text = $"Best Score : {data.name} {data.score}";
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + "/pingpongsave.json", json);
+            highScore.text = $"Best Score : {data.name} {data.score}";
+            string json = JsonUtility.ToJson(data);
+            File.WriteAllText(Application.persistentDataPath + "/pingpongsave.json", json);
+        }
     }
     public void LoadScore(){
         string path = Application.persistentDataPath + "/pingpongsave.json";
